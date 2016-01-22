@@ -46,11 +46,10 @@ api = tweepy.API(auth)
 
     This chain of keyword get all of them.
 
-
 """
 terme = raw_input(bcolors.OKGREEN + "Quels termes souhaitez vos rechercher en temps réel ? Séparés par une virgule (ex: MyTheValentinus,#Carnaval,@MyTheValentinus )\n")
 compteur = 0
-
+music = pyglet.resource.media('a_team.wav')  # Load a epic sound !
 
 class getData(StreamListener):
 
@@ -63,11 +62,12 @@ class getData(StreamListener):
         """
             Print different user and tweet info
         """
-
-        print (bcolors.ENDC + bcolors.BOLD + data["user"]["screen_name"])
+        userData = bcolors.ENDC + bcolors.BOLD + data["user"]["screen_name"]
+        userData.encode('utf-8')  # Fix problem with user special char
+        print (userData)
         if data["text"]:
-            music = pyglet.resource.media('a_team.wav')  # Load a epic sound !
-            music.play()  # Play the sound
+
+            #music.play()  # Play the sound
             print (bcolors.OKBLUE + data["text"])  # Print text
             print (bcolors.WARNING + unicode(u"\u2501"), unicode(u"\u2501"), unicode(u"\u2501"), unicode(u"\u2501"), unicode(u"\u2501"), 'Nbr: ', bcolors.BOLD, compteur)  # separator
             return True
